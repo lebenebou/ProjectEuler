@@ -1,9 +1,9 @@
 
 #include <iostream>
-#include <map>
+#include <unordered_map>
 using namespace std;
 
-size_t steps(const size_t& number, map<size_t, size_t>& data){
+size_t steps(const size_t& number, unordered_map<size_t, size_t>& data){
 
 	if(data[number] > 0) return data[number];
 
@@ -15,7 +15,7 @@ size_t steps(const size_t& number, map<size_t, size_t>& data){
 
 int main(){
 
-	map<size_t, size_t> data;
+	unordered_map<size_t, size_t> data;
 	data[1] = 1;
 	int counter = 0;
 
