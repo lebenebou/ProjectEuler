@@ -3,34 +3,26 @@
 #include <cmath>
 using namespace std;
 
-const int triangular(const int& n){
-
-	return n*(n+1)/2; // O(1)
+long triangle(short n){
+	return (n*(n+1))/2;
 }
 
-const short number_of_factors(const int& n){
+int factors(const int& number){
 
-	short answer = 2;
-
-	for(int div = 2; div <= sqrt(n); div++){
-
-		if(n%div==0){
-			answer+=2; // two factors for each division
-			if((n/div)==div) answer--; // unless it's a square
-		}
-	}
+	int answer = 2;
+	for(int div = 2; div<sqrt(number); ++div){ answer += 2*(number%div==0);}
+	answer += (sqrt(number) == int(sqrt(number)));
 	return answer;
 }
 
 int main(int argc, char const *argv[])
 {
+	short facts = 0;
 
-	int i = 7;
-	while(number_of_factors(triangular(i)) <= 500){
-		i++;
-	}
+	short i = 7;
+	while(facts <= 500) facts = factors(triangle(++i));
 
-	cout << triangular(i) << endl;
-
+	cout << triangle(i) << endl;
+	
 	return 0;
 }
