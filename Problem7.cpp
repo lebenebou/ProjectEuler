@@ -1,38 +1,33 @@
 
 #include <iostream>
-#include <cmath>
+#include <vector>
 using namespace std;
 
-const bool is_prime(const int& n){
+vector<bool> primes_under(const int& limit){
 
-	if(n%2==0 || n<2) return false;
-	if(n==2 or n==3) return true;
+	vector<bool> data(limit, true);
+	data[0] = data[1] = false;
 
-	for(int div = 3; div<=sqrt(n); div+=2){
+	for(size_t i=4; i<limit; i+=2) data[i] = false;
 
-		if(n%div==0) return false;
+	size_t i = 2;
+	while(i < limit){
+
+		while(i < limit && !data[++i]); // stop at next prime
+		for(size_t j=2*i; j<limit; j+=i) data[j] = false;
 	}
-	return true;
+
+	return data;
 }
-
-const int prime_at_position(const int& n){
-
-	int primes_found = 1;
-	int p = 1;
-
-	while(primes_found!=n){
-
-		p+=2;
-		if(is_prime(p)) primes_found++;
-	}
-	return p;
-}
-
 
 int main(int argc, char const *argv[])
 {
-	
-	cout << prime_at_position(10001) << endl;
+	vector<bool> data = primes_under(120004);
+
+	int primes = 0;
+	int num = 2;
+	while(primes < 10001) primes += data[num++];
+	cout << --num << endl;
 
 	return 0;
 }
