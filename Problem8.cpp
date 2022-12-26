@@ -8,7 +8,7 @@ const long long int thirteen_product(const string& s, const int& start){
 	long long int answer = 1;
 	for (int i = start; i < start + 13; ++i)
 	{
-		short num = (s[i] - '0');
+		const short num = (s[i] - '0');
 		if(num==0) return 0;
 		answer *= num;
 	}
