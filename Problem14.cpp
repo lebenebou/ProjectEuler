@@ -1,9 +1,10 @@
 
 #include <iostream>
-#include <unordered_map>
+#include <map>
+#include <time.h>
 using namespace std;
 
-size_t steps(const size_t& number, unordered_map<size_t, size_t>& data){
+uint32_t steps(const uint32_t& number, map<uint32_t, short>& data){
 
 	if(data[number] > 0) return data[number];
 
@@ -15,25 +16,26 @@ size_t steps(const size_t& number, unordered_map<size_t, size_t>& data){
 
 int main(){
 
-	unordered_map<size_t, size_t> data;
+	clock_t time = clock();
+
+	map<uint32_t, short> data;
 	data[1] = 1;
-	int counter = 0;
 
-	size_t max_value = 10;
-	size_t arg_max = 13;
+	short max_value = 10;
+	uint32_t arg_max = 13;
 
-	for(size_t arg=13; arg<=999999; ++arg){
+	for(int i=14; i<1000000; ++i){
 
-		size_t value = steps(arg, data);
+		steps(i, data);
+		if(data[i] > max_value){
 
-		if(value > max_value){
-
-			max_value = value;
-			arg_max = arg;
+			arg_max = i;
+			max_value = data[i];
 		}
 	}
-
-	cout << arg_max << endl;
-
+	time = clock() - time;
+	double time_taken = (double) time/CLOCKS_PER_SEC;
+	cout << arg_max << " in " << time_taken << "s" << endl;
+	
 	return 0;
 }
