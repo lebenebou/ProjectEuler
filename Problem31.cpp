@@ -4,26 +4,22 @@
 #include <vector>
 using namespace std;
 
-long ways_for(const int& number, unordered_map<int, long>& data, const vector<short>& coins){
-
-    if(data[number] > 0) return data[number];
-
-    short i=0;
-    while(number < coins[i++]);
-    
-    cout << i << endl;
-
-    return data[number];
-}
-
 int main(){
 
-    unordered_map<int, long> data;
-    data[1] = 1;
+    const vector<size_t> coins = {1, 2, 5, 10, 20, 50, 100, 200};
 
-    vector<short> coins = {200, 100, 50, 20, 10, 5, 2, 1};
+    vector<size_t> ways_for(201, 0);
+    ways_for[0] = 1;
 
-    cout << ways_for(2, data, coins) << endl;
+    for(auto coin : coins){
+
+        for(size_t i=coin; i<=200; ++i){
+
+            ways_for[i] += ways_for[i - coin];
+        }
+    }
+
+    cout << ways_for[200] << endl;
 
     return 0;
 }
